@@ -181,7 +181,7 @@ class Game extends Phaser.Scene {
       const platform = child;
 
       const scrollY = this.cameras.main.scrollY;
-      if (platform.y >= scrollY + 700) {
+      if (platform.y >= scrollY + 750) {
         platform.y = scrollY - Phaser.Math.Between(50, 100);
         platform.body.updateFromGameObject();
         this.addCarrotAbove(platform);
@@ -263,7 +263,7 @@ class Game extends Phaser.Scene {
    * @param {Carrot} carrot
    */
   handleCollectCarrot(player, carrot) {
-    if (this.carrotsCollected == 0) {
+    if (this.carrotsCollected <= 1) {
       this.scene.start("game-over");
       this.sound.play("die");
     }
