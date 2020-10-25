@@ -21,10 +21,10 @@ let gameOptions = {
   platformHorizontalDistanceRange: [0, 250],
 
   // platform vertical distance range, in pixels
-  platformVerticalDistanceRange: [150, 300],
+  platformVerticalDistanceRange: [150, 300]
 };
 
-window.onload = function () {
+window.onload = function() {
   // game configuration object
   let gameConfig = {
     type: Phaser.AUTO,
@@ -33,8 +33,8 @@ window.onload = function () {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,
       parent: "thegame",
-      width: 750,
-      height: 1334,
+      width: 540,
+	    height: 720,
     },
     physics: {
       default: "arcade",
@@ -45,7 +45,7 @@ window.onload = function () {
         debug: false
       }
     },
-    scene: [Game, GameOver],
+    scene: [Game, GameOver]
   };
   game = new Phaser.Game(gameConfig);
   window.focus();
@@ -60,32 +60,50 @@ class Game extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("background", "assets/bg_layer1.png");
-    this.load.image("platform", "assets/ground_grass.png");
-    this.load.image("bunny-stand", "assets/bunny1_stand.png");
-    this.load.image("bunny-jump", "assets/bunny1_jump.png");
-    this.load.image("carrot", "assets/carrot.png");
+    this.load.image(
+      "background",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fbg_layer1.png?v=1603605919212"
+    );
+    this.load.image(
+      "platform",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fground_grass.png?v=1603605919474"
+    );
+    this.load.image(
+      "carrot",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fcarrot.png?v=1603605919027"
+    );
 
     // bee enemy
-    this.load.atlasXML("enemies", "assets/enemies.png", "assets/enemies.xml");
+    this.load.atlasXML(
+      "enemies",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fenemies.png?v=1603605920558",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fenemies.xml?v=1603606013060"
+    );
 
     // Tāne
-    this.load.image("tane-stand", "assets/tane-back-idle.png");
-    this.load.image("tane-jump", "assets/tane-back-jump.png");
+    this.load.image(
+      "tane-stand",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Ftane-back-idle.png?v=1603605920848"
+    );
+    this.load.image(
+      "tane-jump",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Ftane-back-jump.png?v=1603605921264"
+    );
 
     // this.load.audio("jump", "assets/sfx/phaseJump1.wav");
-    this.load.audio("jump", [
-      "assets/sfx/quake-jump.ogg",
-      "assets/sfx/quake-jump.mp3",
-    ]);
-    this.load.audio("die", [
-      "assets/sfx/quake-die.ogg",
-      "assets/sfx/quake-die.mp3",
-    ]);
-    this.load.audio("hurt", [
-      "assets/sfx/quake-hurt.ogg",
-      "assets/sfx/quake-hurt.mp3",
-    ]);
+    this.load.audio(
+      "jump",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fquake-jump.ogg?v=1603606002409"
+    );
+    this.load.audio(
+      "die",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fquake-die.ogg?v=1603606001864",
+      "assets/sfx/quake-die.mp3"
+    );
+    this.load.audio(
+      "hurt",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fquake-hurt.ogg?v=1603606002105"
+    );
 
     this.cursors = this.input.keyboard.createCursorKeys();
   }
@@ -109,7 +127,9 @@ class Game extends Phaser.Scene {
       body.updateFromGameObject();
     }
 
-    this.player = this.physics.add.sprite(240, 320, "tane-stand").setScale(0.08);
+    this.player = this.physics.add
+      .sprite(240, 320, "tane-stand")
+      .setScale(0.08);
 
     this.player.body.setSize(50, 1500).setOffset(850, 100);
 
@@ -123,12 +143,15 @@ class Game extends Phaser.Scene {
     this.cameras.main.setDeadzone(this.scale.width * 1.5);
 
     this.carrots = this.physics.add.group({
-      classType: Carrot,
+      classType: Carrot
     });
 
     this.anims.create({
-      key: 'bee',
-      frames: [{ key: 'enemies', frame: 'bee.png' },{ key: 'enemies', frame: 'bee_fly.png' }],
+      key: "bee",
+      frames: [
+        { key: "enemies", frame: "bee.png" },
+        { key: "enemies", frame: "bee_fly.png" }
+      ],
       frameRate: 8,
       repeat: -1
     });
@@ -153,7 +176,7 @@ class Game extends Phaser.Scene {
       return;
     }
 
-    this.platforms.children.iterate((child) => {
+    this.platforms.children.iterate(child => {
       /** @type {Phaser.Physics.Arcade.Sprite} */
       const platform = child;
 
@@ -227,7 +250,7 @@ class Game extends Phaser.Scene {
 
     carrot.body.setSize(carrot.width, carrot.height);
 
-    carrot.play("bee", true)
+    carrot.play("bee", true);
 
     this.physics.world.enable(carrot);
 
@@ -240,7 +263,6 @@ class Game extends Phaser.Scene {
    * @param {Carrot} carrot
    */
   handleCollectCarrot(player, carrot) {
-
     if (this.carrotsCollected == 0) {
       this.scene.start("game-over");
       this.sound.play("die");
@@ -277,38 +299,42 @@ class Game extends Phaser.Scene {
 }
 
 class GameOver extends Phaser.Scene {
-  constructor()
-	{
-		super('game-over')
-	}
+  constructor() {
+    super("game-over");
+  }
 
-	create()
-	{
-		const width = this.scale.width
-		const height = this.scale.height
+  create() {
+    const width = this.scale.width;
+    const height = this.scale.height;
 
-		this.add.text(width * 0.5, height * 0.5, 'Game Over', {
-			fontSize: 48
-		})
-		.setOrigin(0.5)
+    this.add
+      .text(width * 0.5, height * 0.5, "Game Over", {
+        fontSize: 48
+      })
+      .setOrigin(0.5);
+    
+    this.add
+      .text(width * 0.5, height * 0.6, "Press Space to Restart", {
+        fontSize: 20
+      })
+      .setOrigin(0.5);
 
-		this.input.keyboard.once('keydown_SPACE', () => {
-			this.scene.start('game')
-		})
-	}
+    this.input.keyboard.once("keydown_SPACE", () => {
+      this.scene.start("game");
+    });
+  }
 }
 
-  class Carrot extends Phaser.Physics.Arcade.Sprite {
-	/**
-	 * @param {Phaser.Scene} scene 
-	 * @param {number} x 
-	 * @param {number} y 
-	 * @param {string} texture 
-	 */
-	constructor(scene, x, y, texture = 'carrot')
-	{
-		super(scene, x, y, texture)
+class Carrot extends Phaser.Physics.Arcade.Sprite {
+  /**
+   * @param {Phaser.Scene} scene
+   * @param {number} x
+   * @param {number} y
+   * @param {string} texture
+   */
+  constructor(scene, x, y, texture = "carrot") {
+    super(scene, x, y, texture);
 
-		this.setScale(0.5)
-	}
+    this.setScale(0.5);
+  }
 }
