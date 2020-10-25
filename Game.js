@@ -1,31 +1,62 @@
-import Phaser from "../lib/phaser.js";
+let game;
 
-import Carrot from "../game/Carrot.js";
+// global object where to store game options
+let gameOptions = {
+  // first platform vertical position. 0 = top of the screen, 1 = bottom of the screen
+  firstPlatformPosition: 2 / 10,
 
-export default class Game extends Phaser.Scene {
-  /** @type {Phaser.Physics.Arcade.StaticGroup} */
-  platforms;
+  // game gravity, which only affects the hero
+  gameGravity: 1200,
 
-  /** @type {Phaser.Physics.Arcade.Sprite} */
-  player;
+  // hero speed, in pixels per second
+  heroSpeed: 300,
 
-  /** @type {Phaser.Types.Input.Keyboard.CursorKeys} */
-  cursors;
+  // platform speed, in pixels per second
+  platformSpeed: 190,
 
-  /** @type {Phaser.Physics.Arcade.Group} */
-  carrots;
+  // platform length range, in pixels
+  platformLengthRange: [50, 150],
 
-  carrotsCollected = 0;
+  // platform horizontal distance range from the center of the stage, in pixels
+  platformHorizontalDistanceRange: [0, 250],
 
-  /** @type {Phaser.GameObjects.Text} */
-  carrotsCollectedText;
+  // platform vertical distance range, in pixels
+  platformVerticalDistanceRange: [150, 300],
+};
 
+window.onload = function () {
+  // game configuration object
+  let gameConfig = {
+    type: Phaser.AUTO,
+    backgroundColor: 0x444444,
+    scale: {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      parent: "thegame",
+      width: 750,
+      height: 1334,
+    },
+    physics: {
+      default: "arcade",
+      arcade: {
+        gravity: {
+          y: 600
+        },
+        debug: false
+      }
+    },
+    scene: [Game, GameOver],
+  };
+  game = new Phaser.Game(gameConfig);
+  window.focus();
+};
+class Game extends Phaser.Scene {
   constructor() {
     super("game");
   }
 
   init() {
-    this.carrotsCollected = 0;
+    this.carrotsCollected = 3;
   }
 
   preload() {
@@ -51,6 +82,10 @@ export default class Game extends Phaser.Scene {
       "assets/sfx/quake-die.ogg",
       "assets/sfx/quake-die.mp3",
     ]);
+    this.load.audio("hurt", [
+      "assets/sfx/quake-hurt.ogg",
+      "assets/sfx/quake-hurt.mp3",
+    ]);
 
     this.cursors = this.input.keyboard.createCursorKeys();
   }
@@ -74,7 +109,7 @@ export default class Game extends Phaser.Scene {
       body.updateFromGameObject();
     }
 
-    this.player = this.physics.add.sprite(240, 320, "tane-stand").setScale(0.1);
+    this.player = this.physics.add.sprite(240, 320, "tane-stand").setScale(0.08);
 
     this.player.body.setSize(50, 1500).setOffset(850, 100);
 
@@ -94,7 +129,7 @@ export default class Game extends Phaser.Scene {
     this.anims.create({
       key: 'bee',
       frames: [{ key: 'enemies', frame: 'bee.png' },{ key: 'enemies', frame: 'bee_fly.png' }],
-      frameRate: 4,
+      frameRate: 8,
       repeat: -1
     });
 
@@ -108,7 +143,7 @@ export default class Game extends Phaser.Scene {
     );
 
     this.carrotsCollectedText = this.add
-      .text(240, 10, "Carrots: 0", { color: "#000", fontSize: 24 })
+      .text(240, 10, "Lives: 3", { color: "#000", fontSize: 24 })
       .setScrollFactor(0)
       .setOrigin(0.5, 0);
   }
@@ -205,13 +240,21 @@ export default class Game extends Phaser.Scene {
    * @param {Carrot} carrot
    */
   handleCollectCarrot(player, carrot) {
+
+    if (this.carrotsCollected == 0) {
+      this.scene.start("game-over");
+      this.sound.play("die");
+    }
+
     this.carrots.killAndHide(carrot);
 
     this.physics.world.disableBody(carrot.body);
 
-    this.carrotsCollected++;
+    this.carrotsCollected--;
 
-    this.carrotsCollectedText.text = `Carrots: ${this.carrotsCollected}`;
+    this.sound.play("hurt");
+
+    this.carrotsCollectedText.text = `Lives: ${this.carrotsCollected}`;
   }
 
   findBottomMostPlatform() {
@@ -231,4 +274,41 @@ export default class Game extends Phaser.Scene {
 
     return bottomPlatform;
   }
+}
+
+class GameOver extends Phaser.Scene {
+  constructor()
+	{
+		super('game-over')
+	}
+
+	create()
+	{
+		const width = this.scale.width
+		const height = this.scale.height
+
+		this.add.text(width * 0.5, height * 0.5, 'Game Over', {
+			fontSize: 48
+		})
+		.setOrigin(0.5)
+
+		this.input.keyboard.once('keydown_SPACE', () => {
+			this.scene.start('game')
+		})
+	}
+}
+
+  class Carrot extends Phaser.Physics.Arcade.Sprite {
+	/**
+	 * @param {Phaser.Scene} scene 
+	 * @param {number} x 
+	 * @param {number} y 
+	 * @param {string} texture 
+	 */
+	constructor(scene, x, y, texture = 'carrot')
+	{
+		super(scene, x, y, texture)
+
+		this.setScale(0.5)
+	}
 }
