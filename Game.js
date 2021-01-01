@@ -115,6 +115,18 @@ class Game extends Phaser.Scene {
       "good",
       "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fgood.ogg?v=1609392786967"
     );
+    this.load.audio(
+      "music",
+      "public/assets/music.mp3"
+    );
+    this.load.audio(
+      "end-music",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fgameover-music.mp3?v=1609537053554"
+    );
+    this.load.audio(
+      "cheer",
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fcheer.wav?v=1609537053752"
+    );
 
     // token types
     this.load.image(
