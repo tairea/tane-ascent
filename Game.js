@@ -117,7 +117,7 @@ class Game extends Phaser.Scene {
     );
     this.load.audio(
       "music",
-      "public/assets/music.mp3"
+      "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fmusic.mp3?v=1609537055594"
     );
     this.load.audio(
       "end-music",
@@ -235,6 +235,16 @@ class Game extends Phaser.Scene {
   }
 
   create() {
+    this.sound.stopAll()
+    // load song
+    const musicConfig = {
+      volume: 0.5,
+      loop: true,
+      delay: 3000
+    }
+    this.music = this.sound.add("music", musicConfig);
+    this.music.play();
+    
     // load google font
     WebFont.load({
       google: {
@@ -721,6 +731,16 @@ class GameOver extends Phaser.Scene {
   }
 
   create() {
+    this.sound.stopAll()
+      // load song
+      const musicConfig = {
+        volume: 0.5,
+        loop: true,
+        delay: 3000
+      }
+      this.endMusic = this.sound.add("end-music", musicConfig);
+      this.endMusic.play();
+    
     const width = this.scale.width;
     const height = this.scale.height;
 
@@ -770,6 +790,16 @@ class YouWin extends Phaser.Scene {
 
   create() {
     this.cameras.main.setBackgroundColor("#533d8e");
+    
+    this.sound.stopAll()
+    // load song
+    const musicConfig = {
+      volume: 0.5,
+      loop: false,
+      delay: 3000
+    }
+    this.cheer = this.sound.add("cheer", musicConfig);
+    this.cheer.play();
 
     const width = this.scale.width;
     const height = this.scale.height;
