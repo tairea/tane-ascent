@@ -21,7 +21,7 @@ let gameOptions = {
   platformHorizontalDistanceRange: [0, 250],
 
   // platform vertical distance range, in pixels
-  platformVerticalDistanceRange: [150, 300]
+  platformVerticalDistanceRange: [150, 300],
 };
 
 window.onload = function () {
@@ -40,12 +40,12 @@ window.onload = function () {
       default: "arcade",
       arcade: {
         gravity: {
-          y: 600
+          y: 600,
         },
-        debug: false
-      }
+        debug: false,
+      },
     },
-    scene: [Game, GameOver, YouWin]
+    scene: [Game, GameOver, YouWin],
   };
   game = new Phaser.Game(gameConfig);
   window.focus();
@@ -57,7 +57,7 @@ class Game extends Phaser.Scene {
 
   init() {
     this.lives = 3;
-    this.tokenGoal = ""
+    this.tokenGoal = "";
   }
 
   preload() {
@@ -142,7 +142,6 @@ class Game extends Phaser.Scene {
       "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Ftane-gold-token.png?v=1609392793468"
     );
 
-
     this.load.image(
       "bronze-token-overlay",
       "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fbronze-overlay.png?v=1609392788745"
@@ -155,8 +154,7 @@ class Game extends Phaser.Scene {
       "gold-token-overlay",
       "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fgold-overlay.png?v=1609392790076"
     );
-    
-    
+
     this.load.image(
       "bronze-token-mask",
       "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fbronze-mask.png?v=1609392788136"
@@ -169,7 +167,6 @@ class Game extends Phaser.Scene {
       "gold-token-mask",
       "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fgold-mask.png?v=1609392789648"
     );
-
 
     this.load.image(
       "bronze-token-tab",
@@ -192,30 +189,102 @@ class Game extends Phaser.Scene {
 
     // coins
     // coins
-    this.load.image("blue-coin-1","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_1.png");
-    this.load.image("blue-coin-2","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_2.png");
-    this.load.image("blue-coin-3","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_3.png");
-    this.load.image("blue-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_4.png");
-    this.load.image("blue-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_5.png");
-    this.load.image("blue-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_6.png");
-    this.load.image("bronze-coin-1","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_1.png");
-    this.load.image("bronze-coin-2","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_2.png");
-    this.load.image("bronze-coin-3","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_3.png");
-    this.load.image("bronze-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_4.png");
-    this.load.image("bronze-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_5.png");
-    this.load.image("bronze-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_6.png");
-    this.load.image("gold-coin-1","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_1.png");
-    this.load.image("gold-coin-2","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_2.png");
-    this.load.image("gold-coin-3","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_3.png");
-    this.load.image("gold-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_4.png");
-    this.load.image("gold-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_5.png");
-    this.load.image("gold-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_6.png");
-    this.load.image("silver-coin-1","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_1.png");
-    this.load.image("silver-coin-2","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_2.png");
-    this.load.image("silver-coin-3","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_3.png");
-    this.load.image("silver-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_4.png");
-    this.load.image("silver-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_5.png");
-    this.load.image("silver-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_6.png");
+    this.load.image(
+      "blue-coin-1",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_1.png"
+    );
+    this.load.image(
+      "blue-coin-2",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_2.png"
+    );
+    this.load.image(
+      "blue-coin-3",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_3.png"
+    );
+    this.load.image(
+      "blue-coin-4",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_4.png"
+    );
+    this.load.image(
+      "blue-coin-5",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_5.png"
+    );
+    this.load.image(
+      "blue-coin-6",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_6.png"
+    );
+    this.load.image(
+      "bronze-coin-1",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_1.png"
+    );
+    this.load.image(
+      "bronze-coin-2",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_2.png"
+    );
+    this.load.image(
+      "bronze-coin-3",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_3.png"
+    );
+    this.load.image(
+      "bronze-coin-4",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_4.png"
+    );
+    this.load.image(
+      "bronze-coin-5",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_5.png"
+    );
+    this.load.image(
+      "bronze-coin-6",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_6.png"
+    );
+    this.load.image(
+      "gold-coin-1",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_1.png"
+    );
+    this.load.image(
+      "gold-coin-2",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_2.png"
+    );
+    this.load.image(
+      "gold-coin-3",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_3.png"
+    );
+    this.load.image(
+      "gold-coin-4",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_4.png"
+    );
+    this.load.image(
+      "gold-coin-5",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_5.png"
+    );
+    this.load.image(
+      "gold-coin-6",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_6.png"
+    );
+    this.load.image(
+      "silver-coin-1",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_1.png"
+    );
+    this.load.image(
+      "silver-coin-2",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_2.png"
+    );
+    this.load.image(
+      "silver-coin-3",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_3.png"
+    );
+    this.load.image(
+      "silver-coin-4",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_4.png"
+    );
+    this.load.image(
+      "silver-coin-5",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_5.png"
+    );
+    this.load.image(
+      "silver-coin-6",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_6.png"
+    );
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -224,7 +293,7 @@ class Game extends Phaser.Scene {
       "webfont",
       "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"
     );
-    
+
     // rexUI plugin
     this.load.scenePlugin(
       "rexuiplugin",
@@ -235,41 +304,50 @@ class Game extends Phaser.Scene {
   }
 
   create() {
-    this.sound.stopAll()
+    this.sound.stopAll();
     // load song
     const musicConfig = {
       volume: 0.5,
       loop: true,
-      delay: 3000
-    }
+      delay: 3000,
+    };
     this.music = this.sound.add("music", musicConfig);
     this.music.play();
-    
+
     // load google font
     WebFont.load({
       google: {
-        families: ["Freckle Face", "Finger Paint", "Nosifer"]
+        families: ["Freckle Face", "Finger Paint", "Nosifer"],
       },
       active: () => {
         this.livesText = this.add
           .text(game.config.width / 2, 50, "Lives: " + this.lives, {
             fontFamily: "Freckle Face",
             fontSize: 50,
-            color: "#ffffff"
+            color: "#ffffff",
           })
           .setShadow(2, 2, "#333333", 2, false, true);
         this.livesText.setAlign("center");
         this.livesText.setOrigin();
-        this.livesText.setScrollFactor(0)
-
-      }
+        this.livesText.setScrollFactor(0);
+      },
     });
 
     this.add.image(240, 320, "background").setScrollFactor(1, 0);
-    this.add.tileSprite(game.config.width/2, game.config.height/2, game.config.width, 3000, "kowhaiwhai").setScrollFactor(0, 0.25).setAlpha(0.2).setScale(1);
+    this.add
+      .tileSprite(
+        game.config.width / 2,
+        game.config.height / 2,
+        game.config.width,
+        3000,
+        "kowhaiwhai"
+      )
+      .setScrollFactor(0, 0.25)
+      .setAlpha(0.2)
+      .setScale(1);
 
     // token types
-  // this.add.image(game.config.width - 60, 50, "bronze-token-type").setScrollFactor(0).setScale(0.2).setDepth(100)
+    // this.add.image(game.config.width - 60, 50, "bronze-token-type").setScrollFactor(0).setScale(0.2).setDepth(100)
     // this.add.image(game.config.width - 60, 150, "silver-token-type").setScrollFactor(0).setScale(0.2).setDepth(100)
     // this.add.image(game.config.width - 60, 250, "gold-token-type").setScrollFactor(0).setScale(0.2).setDepth(100)
 
@@ -278,18 +356,22 @@ class Game extends Phaser.Scene {
     // the token container. A simple sprite
     let tokenBronze = this.add
       .sprite(game.config.width - 60, 50, "bronze-token-type")
-      .setScrollFactor(0).setScale(0.2).setDepth(100)
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(100);
     // the energy bar. Another simple sprite
     this.tokenBronzeBar = this.add
-      .sprite(
-        tokenBronze.x, tokenBronze.y+ 75, "bronze-token-overlay"
-      )
-      .setScrollFactor(0).setScale(0.2).setDepth(100)
+      .sprite(tokenBronze.x, tokenBronze.y + 75, "bronze-token-overlay")
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(100);
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
     //energybar width is 500px (at 0.2 scale energybar width is 100px)
     this.tokenBronzeMask = this.add
-      .sprite(tokenBronze.x,  tokenBronze.y, "bronze-token-mask")
-      .setScrollFactor(0).setScale(0.2).setDepth(100)
+      .sprite(tokenBronze.x, tokenBronze.y, "bronze-token-mask")
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(100);
     this.tokenBronzeMask.visible = true;
     // and we assign it as energyBar's mask.
     this.tokenBronzeBar.mask = new Phaser.Display.Masks.BitmapMask(
@@ -297,111 +379,148 @@ class Game extends Phaser.Scene {
       this.tokenBronzeMask
     );
     // create a group for the gold tab
-    this.tokenBronzeTabGroup = this.add.group()
-    this.tokenBronzeTab = this.add.sprite(game.config.width - 110, 50, "bronze-token-tab").setScrollFactor(0).setScale(0.2).setDepth(99)
-    this.tokenBronzeHand = this.add.sprite(game.config.width - 130, 50, "hand").setScrollFactor(0).setScale(0.12).setDepth(99)
-    this.tokenBronzeTabGroup.addMultiple([this.tokenBronzeTab, this.tokenBronzeHand])
+    this.tokenBronzeTabGroup = this.add.group();
+    this.tokenBronzeTab = this.add
+      .sprite(game.config.width - 110, 50, "bronze-token-tab")
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(99);
+    this.tokenBronzeHand = this.add
+      .sprite(game.config.width - 130, 50, "hand")
+      .setScrollFactor(0)
+      .setScale(0.12)
+      .setDepth(99);
+    this.tokenBronzeTabGroup.addMultiple([
+      this.tokenBronzeTab,
+      this.tokenBronzeHand,
+    ]);
     // hand animation
     this.tweens.add({
       targets: this.tokenBronzeHand,
       x: game.config.width - 125,
       duration: 500,
-      ease: 'Back.easeIn ',
+      ease: "Back.easeIn ",
       yoyo: true,
-      loop: -1
+      loop: -1,
     });
-    this.tokenBronzeTabGroup.toggleVisible()
+    this.tokenBronzeTabGroup.toggleVisible();
 
     // Silver token type
     let tokenSilver = this.add
       .sprite(game.config.width - 60, 150, "silver-token-type")
-      .setScrollFactor(0).setScale(0.2).setDepth(100)
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(100);
     this.tokenSilverBar = this.add
-      .sprite(
-        tokenSilver.x, tokenSilver.y+ 75, "silver-token-overlay"
-      )
-      .setScrollFactor(0).setScale(0.2).setDepth(100)
+      .sprite(tokenSilver.x, tokenSilver.y + 75, "silver-token-overlay")
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(100);
     this.tokenSilverMask = this.add
-      .sprite(tokenSilver.x,  tokenSilver.y, "silver-token-mask")
-      .setScrollFactor(0).setScale(0.2).setDepth(100)
+      .sprite(tokenSilver.x, tokenSilver.y, "silver-token-mask")
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(100);
     this.tokenSilverMask.visible = true;
     this.tokenSilverBar.mask = new Phaser.Display.Masks.BitmapMask(
       this,
       this.tokenSilverMask
     );
     // create a group for the gold tab
-    this.tokenSilverTabGroup = this.add.group()
-    this.tokenSilverTab = this.add.sprite(game.config.width - 110, 150, "silver-token-tab").setScrollFactor(0).setScale(0.2).setDepth(99)
-    this.tokenSilverHand = this.add.sprite(game.config.width - 130, 150, "hand").setScrollFactor(0).setScale(0.12).setDepth(99)
-    this.tokenSilverTabGroup.addMultiple([this.tokenSilverTab, this.tokenSilverHand])
+    this.tokenSilverTabGroup = this.add.group();
+    this.tokenSilverTab = this.add
+      .sprite(game.config.width - 110, 150, "silver-token-tab")
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(99);
+    this.tokenSilverHand = this.add
+      .sprite(game.config.width - 130, 150, "hand")
+      .setScrollFactor(0)
+      .setScale(0.12)
+      .setDepth(99);
+    this.tokenSilverTabGroup.addMultiple([
+      this.tokenSilverTab,
+      this.tokenSilverHand,
+    ]);
     // hand animation
     this.tweens.add({
       targets: this.tokenSilverHand,
       x: game.config.width - 125,
       duration: 500,
-      ease: 'Back.easeIn ',
+      ease: "Back.easeIn ",
       yoyo: true,
-      loop: -1
+      loop: -1,
     });
-    this.tokenSilverTabGroup.toggleVisible()
+    this.tokenSilverTabGroup.toggleVisible();
 
     // Gold token type
     let tokenGold = this.add
       .sprite(game.config.width - 60, 250, "gold-token-type")
-      .setScrollFactor(0).setScale(0.2).setDepth(100)
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(100);
     this.tokenGoldBar = this.add
-      .sprite(
-        tokenGold.x, tokenGold.y+ 75, "gold-token-overlay"
-      )
-      .setScrollFactor(0).setScale(0.2).setDepth(100)
+      .sprite(tokenGold.x, tokenGold.y + 75, "gold-token-overlay")
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(100);
     this.tokenGoldMask = this.add
-      .sprite(tokenGold.x,  tokenGold.y, "gold-token-mask")
-      .setScrollFactor(0).setScale(0.2).setDepth(100)
+      .sprite(tokenGold.x, tokenGold.y, "gold-token-mask")
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(100);
     this.tokenGoldMask.visible = true;
     this.tokenGoldBar.mask = new Phaser.Display.Masks.BitmapMask(
       this,
       this.tokenGoldMask
     );
     // create a group for the gold tab
-    this.tokenGoldTabGroup = this.add.group()
-    this.tokenGoldTab = this.add.sprite(game.config.width - 110, 250, "gold-token-tab").setScrollFactor(0).setScale(0.2).setDepth(99)
-    this.tokenGoldHand = this.add.sprite(game.config.width - 130, 250, "hand").setScrollFactor(0).setScale(0.12).setDepth(99)
-    this.tokenGoldTabGroup.addMultiple([this.tokenGoldTab, this.tokenGoldHand])
+    this.tokenGoldTabGroup = this.add.group();
+    this.tokenGoldTab = this.add
+      .sprite(game.config.width - 110, 250, "gold-token-tab")
+      .setScrollFactor(0)
+      .setScale(0.2)
+      .setDepth(99);
+    this.tokenGoldHand = this.add
+      .sprite(game.config.width - 130, 250, "hand")
+      .setScrollFactor(0)
+      .setScale(0.12)
+      .setDepth(99);
+    this.tokenGoldTabGroup.addMultiple([this.tokenGoldTab, this.tokenGoldHand]);
     // hand animation
     this.tweens.add({
       targets: this.tokenGoldHand,
       x: game.config.width - 125,
       duration: 500,
-      ease: 'Back.easeIn ',
+      ease: "Back.easeIn ",
       yoyo: true,
-      loop: -1
+      loop: -1,
     });
-    this.tokenGoldTabGroup.toggleVisible()
+    this.tokenGoldTabGroup.toggleVisible();
 
     // decide which token is the goal
-    this.getTokenGoal = function() {
+    this.getTokenGoal = function () {
       const random = Phaser.Math.Between(1, 3);
-      switch(random) {
+      switch (random) {
         case 1:
-          this.tokenGoal = "gold"
-          this.tokenGoldTabGroup.toggleVisible()
+          this.tokenGoal = "gold";
+          this.tokenGoldTabGroup.toggleVisible();
           break;
         case 2:
-          this.tokenGoal = "silver"
-          this.tokenSilverTabGroup.toggleVisible()
+          this.tokenGoal = "silver";
+          this.tokenSilverTabGroup.toggleVisible();
           break;
         case 3:
-          this.tokenGoal = "bronze"
-          this.tokenBronzeTabGroup.toggleVisible()
+          this.tokenGoal = "bronze";
+          this.tokenBronzeTabGroup.toggleVisible();
           break;
         default:
-          this.tokenGoal = "gold"        
-          this.tokenGoldTabGroup.toggleVisible()
+          this.tokenGoal = "gold";
+          this.tokenGoldTabGroup.toggleVisible();
       }
-    }
-    this.getTokenGoal()
-    console.log("token goal is:",this.tokenGoal)
-
+    };
+    this.getTokenGoal();
+    console.log("token goal is:", this.tokenGoal);
 
     this.platforms = this.physics.add.staticGroup();
 
@@ -409,7 +528,6 @@ class Game extends Phaser.Scene {
 
     // then create 5 platforms from the group
     for (let i = 0; i < 5; ++i) {
-      
       let x = Phaser.Math.Between(80, 400);
       const y = 150 * i;
 
@@ -417,9 +535,9 @@ class Game extends Phaser.Scene {
       if (i == 4 && firstPlatform == true) {
         firstPlatform = false;
         // middle of screen(ish)
-        x = game.config.width / 2 - 40
+        x = game.config.width / 2 - 40;
       }
-      
+
       /** @type {Phaser.Physics.Arcade.Sprite} */
       const platform = this.platforms.create(x, y, "platform");
       platform.scale = 0.2;
@@ -449,76 +567,77 @@ class Game extends Phaser.Scene {
     this.cameras.main.setDeadzone(this.scale.width * 1.5);
 
     this.tokens = this.physics.add.group({
-      classType: Carrot
+      classType: Carrot,
     });
 
     //================ Animations
     this.anims.create({
       key: "bee",
-      frames: [{
+      frames: [
+        {
           key: "enemies",
-          frame: "bee.png"
+          frame: "bee.png",
         },
         {
           key: "enemies",
-          frame: "bee_fly.png"
-        }
+          frame: "bee_fly.png",
+        },
       ],
       frameRate: 8,
-      repeat: -1
+      repeat: -1,
     });
     //coins anims
     this.anims.create({
       key: "blueCoin",
       frames: [
-        {key:"blue-coin-1",frame:0},
-        {key:"blue-coin-2",frame:0},
-        {key:"blue-coin-3",frame:0},
-        {key:"blue-coin-4",frame:0},
-        {key:"blue-coin-5",frame:0},
-        {key:"blue-coin-6",frame:0},
-        ],
+        { key: "blue-coin-1", frame: 0 },
+        { key: "blue-coin-2", frame: 0 },
+        { key: "blue-coin-3", frame: 0 },
+        { key: "blue-coin-4", frame: 0 },
+        { key: "blue-coin-5", frame: 0 },
+        { key: "blue-coin-6", frame: 0 },
+      ],
       frameRate: 12,
-      repeat: -1
+      repeat: -1,
     });
     this.anims.create({
       key: "goldCoin",
       frames: [
-        {key:"gold-coin-1",frame:0},
-        {key:"gold-coin-2",frame:0},
-        {key:"gold-coin-3",frame:0},
-        {key:"gold-coin-4",frame:0},
-        {key:"gold-coin-5",frame:0},
-        {key:"gold-coin-6",frame:0},
-        ],
+        { key: "gold-coin-1", frame: 0 },
+        { key: "gold-coin-2", frame: 0 },
+        { key: "gold-coin-3", frame: 0 },
+        { key: "gold-coin-4", frame: 0 },
+        { key: "gold-coin-5", frame: 0 },
+        { key: "gold-coin-6", frame: 0 },
+      ],
       frameRate: 12,
-      repeat: -1
+      repeat: -1,
     });
     this.anims.create({
       key: "silverCoin",
       frames: [
-        {key:"silver-coin-1",frame:0},
-        {key:"silver-coin-2",frame:0},
-        {key:"silver-coin-3",frame:0},
-        {key:"silver-coin-4",frame:0},
-        {key:"silver-coin-5",frame:0},
-        {key:"silver-coin-6",frame:0},
-        ],
+        { key: "silver-coin-1", frame: 0 },
+        { key: "silver-coin-2", frame: 0 },
+        { key: "silver-coin-3", frame: 0 },
+        { key: "silver-coin-4", frame: 0 },
+        { key: "silver-coin-5", frame: 0 },
+        { key: "silver-coin-6", frame: 0 },
+      ],
       frameRate: 12,
-      repeat: -1
+      repeat: -1,
     });
     this.anims.create({
       key: "bronzeCoin",
       frames: [
-        {key:"bronze-coin-1",frame:0},
-        {key:"bronze-coin-2",frame:0},
-        {key:"bronze-coin-3",frame:0},
-        {key:"bronze-coin-4",frame:0},
-        {key:"bronze-coin-5",frame:0},
-        {key:"bronze-coin-6",frame:0},
-        ],
+        { key: "bronze-coin-1", frame: 0 },
+        { key: "bronze-coin-2", frame: 0 },
+        { key: "bronze-coin-3", frame: 0 },
+        { key: "bronze-coin-4", frame: 0 },
+        { key: "bronze-coin-5", frame: 0 },
+        { key: "bronze-coin-6", frame: 0 },
+      ],
       frameRate: 12,
-      repeat: -1
+      repeat: -1,
     });
 
     this.physics.add.collider(this.platforms, this.tokens);
@@ -529,7 +648,37 @@ class Game extends Phaser.Scene {
       undefined,
       this
     );
- 
+
+    // ========= CONTROLS ===========
+    // input listener to move the hero
+    this.input.on("pointerdown", this.moveHero, this);
+    // input listener on keyboard to move the hero
+    this.input.keyboard.on("keydown", this.moveHero, this);
+
+    // input listener to stop the hero
+    this.input.on("pointerup", this.stopHero, this);
+    // input listener on keyboard to stop the hero
+    this.input.keyboard.on("keyup", this.stopHero, this);
+  }
+
+  moveHero(e) {
+    // set hero velocity according to input horizontal coordinate
+    this.player.setVelocityX(
+      gameOptions.heroSpeed * (e.x > game.config.width / 2 ? 1 : -1)
+    );
+
+    // keyboard controller
+    if (this.cursors.left.isDown) {
+      this.player.setVelocityX(-300);
+    } else if (this.cursors.right.isDown) {
+      this.player.setVelocityX(300);
+    }
+  }
+
+  // method to stop the hero
+  stopHero() {
+    // ... just stop the hero :)
+    this.player.setVelocityX(0);
   }
 
   update(t, dt) {
@@ -537,13 +686,14 @@ class Game extends Phaser.Scene {
       return;
     }
 
-    this.platforms.children.iterate(child => {
+    this.platforms.children.iterate((child) => {
       /** @type {Phaser.Physics.Arcade.Sprite} */
       const platform = child;
 
       // add new platforms above once platforms disappear below bottom line.
       const scrollY = this.cameras.main.scrollY;
-      if (platform.y >= scrollY + 750) { // if platform is 750 below current scrollY
+      if (platform.y >= scrollY + 750) {
+        // if platform is 750 below current scrollY
         platform.y = scrollY - Phaser.Math.Between(50, 100); // random new y position relative to scrollY
         platform.x = Phaser.Math.Between(0, game.config.width); // random new x position
         platform.body.updateFromGameObject(); // update position
@@ -563,20 +713,12 @@ class Game extends Phaser.Scene {
       // this.tokenSilverBar.y -= 5
       // console.log("bronze.Y:",this.tokenBronzeBar.y,"Gold.Y:",this.tokenGoldBar.y,"Silver.Y:",this.tokenSilverBar.y,)
 
-      this.sound.play("jump"); 
+      this.sound.play("jump");
     }
 
     const vy = this.player.body.velocity.y;
     if (vy > 0 && this.player.texture.key !== "tane-stand") {
       this.player.setTexture("tane-stand");
-    }
-
-    if (this.cursors.left.isDown && !touchingDown) {
-      this.player.setVelocityX(-300);
-    } else if (this.cursors.right.isDown && !touchingDown) {
-      this.player.setVelocityX(300);
-    } else {
-      this.player.setVelocityX(0);
     }
 
     this.horizontalWrap(this.player);
@@ -613,8 +755,8 @@ class Game extends Phaser.Scene {
     // get random number to determine which token to randomly place
     const random = Phaser.Math.Between(1, 3);
 
-    switch(random) {
-        case 1:
+    switch (random) {
+      case 1:
         const goldToken = this.tokens.get(sprite.x, y, "gold-coin-1");
         goldToken.setActive(true);
         goldToken.setVisible(true);
@@ -645,7 +787,7 @@ class Game extends Phaser.Scene {
         return bronzeToken;
         break;
       default:
-        return
+        return;
     }
   }
 
@@ -665,33 +807,33 @@ class Game extends Phaser.Scene {
     this.physics.world.disableBody(token.body);
 
     // get token type
-    const tokenGot = token.texture.key.split("-")[0]
-    console.log("target:",this.tokenGoal,"got:",tokenGot)
+    const tokenGot = token.texture.key.split("-")[0];
+    console.log("target:", this.tokenGoal, "got:", tokenGot);
 
     // take action depending on which token touched
     if (tokenGot == this.tokenGoal) {
-      this.sound.play("good"); 
+      this.sound.play("good");
       if (this.tokenGoal == "gold") {
         // TODO: increase gold token type
         if (this.tokenGoldBar.y == 250) {
-          console.log("YOU WIN")
+          console.log("YOU WIN");
           this.scene.start("you-win");
         } else {
-          this.tokenGoldBar.y -= 5
+          this.tokenGoldBar.y -= 5;
         }
       } else if (this.tokenGoal == "silver") {
         if (this.tokenSilverBar.y == 150) {
-          console.log("YOU WIN")
+          console.log("YOU WIN");
           this.scene.start("you-win");
         } else {
-          this.tokenSilverBar.y -= 5
+          this.tokenSilverBar.y -= 5;
         }
       } else if (this.tokenGoal == "bronze") {
         if (this.tokenBronzeBar.y == 50) {
-          console.log("YOU WIN")
+          console.log("YOU WIN");
           this.scene.start("you-win");
         } else {
-          this.tokenBronzeBar.y -= 5
+          this.tokenBronzeBar.y -= 5;
         }
       }
     } else {
@@ -699,11 +841,6 @@ class Game extends Phaser.Scene {
       this.sound.play("hurt");
       this.livesText.setText(`Lives: ${this.lives}`);
     }
-
-
-   
-
-    
   }
 
   findBottomMostPlatform() {
@@ -731,53 +868,74 @@ class GameOver extends Phaser.Scene {
   }
 
   create() {
-    this.sound.stopAll()
-      // load song
-      const musicConfig = {
-        volume: 0.5,
-        loop: true,
-        delay: 3000
-      }
-      this.endMusic = this.sound.add("end-music", musicConfig);
-      this.endMusic.play();
-    
+    this.sound.stopAll();
+    // load song
+    const musicConfig = {
+      volume: 0.5,
+      loop: true,
+      delay: 3000,
+    };
+    this.endMusic = this.sound.add("end-music", musicConfig);
+    this.endMusic.play();
+
     const width = this.scale.width;
     const height = this.scale.height;
 
-    this.add.tileSprite(game.config.width/2, game.config.height/2 + 500, game.config.width, 3000, "kowhaiwhai").setScrollFactor(0, 0.25).setAlpha(0.2).setScale(1);
+    this.add
+      .tileSprite(
+        game.config.width / 2,
+        game.config.height / 2 + 500,
+        game.config.width,
+        3000,
+        "kowhaiwhai"
+      )
+      .setScrollFactor(0, 0.25)
+      .setAlpha(0.2)
+      .setScale(1);
 
     WebFont.load({
       google: {
-        families: ["Freckle Face", "Finger Paint", "Nosifer"]
+        families: ["Freckle Face", "Finger Paint", "Nosifer"],
       },
       active: () => {
-
         this.gameOver = this.add
-          .text(game.config.width / 2, game.config.height / 2 - 100, "Game Over", {
-            fontFamily: "Freckle Face",
-            fontSize:  50,
-            color: "#ffffff"
-          })
+          .text(
+            game.config.width / 2,
+            game.config.height / 2 - 100,
+            "Game Over",
+            {
+              fontFamily: "Freckle Face",
+              fontSize: 50,
+              color: "#ffffff",
+            }
+          )
           .setShadow(2, 2, "#333333", 2, false, true);
         this.gameOver.setAlign("center");
         this.gameOver.setOrigin();
-        this.gameOver.setScrollFactor(0)
+        this.gameOver.setScrollFactor(0);
 
         this.pressRestart = this.add
-          .text(game.config.width / 2, game.config.height / 2, "Press Space to Restart", {
-            fontFamily: "Finger Paint",
-            fontSize: 20,
-            color: "#ffffff"
-          })
+          .text(
+            game.config.width / 2,
+            game.config.height / 2,
+            "Press Space to Restart",
+            {
+              fontFamily: "Finger Paint",
+              fontSize: 20,
+              color: "#ffffff",
+            }
+          )
           .setShadow(2, 2, "#333333", 2, false, true);
         this.pressRestart.setAlign("center");
         this.pressRestart.setOrigin();
-        this.pressRestart .setScrollFactor(0)
-
-      }
+        this.pressRestart.setScrollFactor(0);
+      },
     });
-    
+
     this.input.keyboard.once("keydown-SPACE", () => {
+      this.scene.start("game");
+    });
+    this.input.on("pointerdown", () => {
       this.scene.start("game");
     });
   }
@@ -790,62 +948,90 @@ class YouWin extends Phaser.Scene {
 
   create() {
     this.cameras.main.setBackgroundColor("#533d8e");
-    
-    this.sound.stopAll()
+
+    this.sound.stopAll();
     // load song
     const musicConfig = {
       volume: 0.5,
       loop: false,
-      delay: 3000
-    }
+      delay: 3000,
+    };
     this.cheer = this.sound.add("cheer", musicConfig);
     this.cheer.play();
 
     const width = this.scale.width;
     const height = this.scale.height;
 
-    this.add.tileSprite(game.config.width/2, game.config.height/2 + 500, game.config.width, 3000, "kowhaiwhai").setScrollFactor(0, 0.25).setAlpha(0.2).setScale(1);
+    this.add
+      .tileSprite(
+        game.config.width / 2,
+        game.config.height / 2 + 500,
+        game.config.width,
+        3000,
+        "kowhaiwhai"
+      )
+      .setScrollFactor(0, 0.25)
+      .setAlpha(0.2)
+      .setScale(1);
 
     WebFont.load({
       google: {
-        families: ["Freckle Face", "Finger Paint", "Nosifer"]
+        families: ["Freckle Face", "Finger Paint", "Nosifer"],
       },
       active: () => {
-
         this.gameOver = this.add
-          .text(game.config.width / 2, game.config.height / 2 - 100, "You Win!", {
-            fontFamily: "Freckle Face",
-            fontSize:  50,
-            color: "#ffffff"
-          })
+          .text(
+            game.config.width / 2,
+            game.config.height / 2 - 100,
+            "You Win!",
+            {
+              fontFamily: "Freckle Face",
+              fontSize: 50,
+              color: "#ffffff",
+            }
+          )
           .setShadow(2, 2, "#333333", 2, false, true);
         this.gameOver.setAlign("center");
         this.gameOver.setOrigin();
-        this.gameOver.setScrollFactor(0)
+        this.gameOver.setScrollFactor(0);
 
-        this.add.text(game.config.width / 2, game.config.height / 2, "Tino pai to mahi.", {
-            fontFamily: "Finger Paint",
-            fontSize: 20,
-            color: "#ffffff"
-          })
+        this.add
+          .text(
+            game.config.width / 2,
+            game.config.height / 2,
+            "Tino pai to mahi.",
+            {
+              fontFamily: "Finger Paint",
+              fontSize: 20,
+              color: "#ffffff",
+            }
+          )
           .setShadow(2, 2, "#333333", 2, false, true)
           .setAlign("center")
           .setOrigin()
-          .setScrollFactor(0)
-        this.add.text(game.config.width / 2, game.config.height / 2 + 100, "You collected all the actions\n to complete this moemoeā.", {
-            fontFamily: "Finger Paint",
-            fontSize: 20,
-            color: "#ffffff"
-          })
+          .setScrollFactor(0);
+        this.add
+          .text(
+            game.config.width / 2,
+            game.config.height / 2 + 100,
+            "You collected all the actions\n to complete this moemoeā.",
+            {
+              fontFamily: "Finger Paint",
+              fontSize: 20,
+              color: "#ffffff",
+            }
+          )
           .setShadow(2, 2, "#333333", 2, false, true)
           .setAlign("center")
           .setOrigin()
-          .setScrollFactor(0)
-
-      }
+          .setScrollFactor(0);
+      },
     });
 
     this.input.keyboard.once("keydown-SPACE", () => {
+      this.scene.start("game");
+    });
+    this.input.on("pointerdown", () => {
       this.scene.start("game");
     });
   }
