@@ -452,7 +452,7 @@ class Game extends Phaser.Scene {
       classType: Carrot
     });
 
-    // Animations
+    //================ Animations
     this.anims.create({
       key: "bee",
       frames: [{
@@ -572,9 +572,9 @@ class Game extends Phaser.Scene {
     }
 
     if (this.cursors.left.isDown && !touchingDown) {
-      this.player.setVelocityX(-200);
+      this.player.setVelocityX(-300);
     } else if (this.cursors.right.isDown && !touchingDown) {
-      this.player.setVelocityX(200);
+      this.player.setVelocityX(300);
     } else {
       this.player.setVelocityX(0);
     }

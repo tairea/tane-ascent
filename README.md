@@ -1,12 +1,8 @@
-Tane Jump
+Tāne Ascent
 =================
 
-Following the Bunny Jump tutorial from Ourcade
+Help Tāne ascend the heavens to achieve his moemoeā.
 
+Web game built using [Phaser.js](http://phaser.io/) v3
 
-[Ourcade Bunny Jump Tutorial](https://ourcade.co/books/infinite-jumper-phaser3/).
-
-
--------------------
-
-\ ゜o゜)ノ
+Inspired by [Ourcade's Bunny Jump Tutorial](https://ourcade.co/books/infinite-jumper-phaser3/).
